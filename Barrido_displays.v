@@ -1,7 +1,14 @@
-module Barrido_displays(CSseg, tipo, clk1kHz, Sseg, anodos, Ssegnum1, Ssegnum2, signo1, operador);
+module Barrido_displays(CSseg, tipo, clk1kHz, dres0, dres1, dres2, dres3, dres4, dres5, signo_resultado, Sseg, anodos, Ssegnum1, Ssegnum2, signo1, operador);
 	input [6:0] CSseg;
 	input tipo;
 	input clk1kHz;
+	input [3:0] dres0;
+	input [3:0] dres1;
+	input [3:0] dres2;
+	input [3:0] dres3;
+	input [3:0] dres4;
+	input [3:0] dres5;
+	input signo_resultado;
 	output reg [6:0] Sseg;
 	output reg [7:0] anodos;
 	output reg [20:0] Ssegnum1;
@@ -26,6 +33,8 @@ module Barrido_displays(CSseg, tipo, clk1kHz, Sseg, anodos, Ssegnum1, Ssegnum2, 
 	reg [2:0]contadorpos;
 	
 	parameter [6:0] nul = 7'b1111111;
+	parameter [6:0] segmin = 7'b1111110; //-
+	parameter [6:0] segeq = 7'b1110110; //=
 	
 	//Inicializar registros
 	initial begin
@@ -54,63 +63,71 @@ module Barrido_displays(CSseg, tipo, clk1kHz, Sseg, anodos, Ssegnum1, Ssegnum2, 
 			3'b111: begin anodos = 8'b01111111; Sseg = Sseg7; end
 		endcase
 		
-	end
-	
-	always @(CSseg) begin
+		if(CSseg == segeq) begin
+			Sseg0 = dres0;
+			Sseg1 = dres1;
+			Sseg2 = dres2;
+			Sseg3 = dres3;
+			Sseg4 = dres4;
+			Sseg5 = dres5;
+			Sseg6 = (signo_resultado == 0) ? nul:segmin;
+			Sseg7 = nul;
+		end else begin
 		
-		case(contadorpos)
-			3'b000: if (tipo == 0)begin 
-						   Sseg7 = (CSseg == 7'b1101100) ? 7'b1111111:CSseg; 
-					  end
-			3'b001: if (tipo == 1)begin
-							Sseg6 = CSseg;
-					  end else begin
-							contadorpos = contadorpos - 3'd1;
-					  end
-			3'b010: if (tipo == 1)begin
-							Sseg5 = CSseg;
-					  end else begin
-							contadorpos = contadorpos - 3'd1;
-					  end
-			3'b011: if (tipo == 1) begin
-							Sseg4 = CSseg;
-					  end else begin
-							contadorpos = contadorpos - 3'd1;
-					  end
-			3'b100: if (tipo == 0) begin
-							Sseg3 = CSseg;
-					  end else begin
-							contadorpos = contadorpos - 3'd1;
-					  end
-			3'b101: if (tipo == 1) begin
-							Sseg2 = CSseg;
-					  end else begin
-							contadorpos = contadorpos - 3'd1;
-					  end
-			3'b110: if (tipo == 1) begin
-							Sseg1 = CSseg;
-					  end else begin
-							contadorpos = contadorpos - 3'd1;
-					  end
-			3'b111: begin 
-					  if (tipo == 1) begin
-							Sseg0 = CSseg;
-					  end else begin
-							contadorpos = contadorpos - 3'd1;
-					  end 
-					  signo1 = Sseg7;
-					  Ssegnum1[20:14] = Sseg6;
-					  Ssegnum1[13:7] = Sseg5;
-					  Ssegnum1[6:0] = Sseg4;
-					  operador = Sseg3;
-					  Ssegnum2[20:14] = Sseg2;
-					  Ssegnum2[13:7] = Sseg1;
-					  Ssegnum2[6:0] = Sseg0;
-					  end
-		endcase 
-		
-		contadorpos = contadorpos + 3'd1;
+			case(contadorpos)
+				3'b000: if (tipo == 0)begin 
+								Sseg7 = (CSseg == 7'b1101100) ? 7'b1111111:CSseg; 
+						  end
+				3'b001: if (tipo == 1)begin
+								Sseg6 = CSseg;
+						  end else begin
+								contadorpos = contadorpos - 3'd1;
+						  end
+				3'b010: if (tipo == 1)begin
+								Sseg5 = CSseg;
+						  end else begin
+								contadorpos = contadorpos - 3'd1;
+						  end
+				3'b011: if (tipo == 1) begin
+								Sseg4 = CSseg;
+						  end else begin
+								contadorpos = contadorpos - 3'd1;
+						  end
+				3'b100: if (tipo == 0) begin
+								Sseg3 = CSseg;
+						  end else begin
+								contadorpos = contadorpos - 3'd1;
+						  end
+				3'b101: if (tipo == 1) begin
+								Sseg2 = CSseg;
+						  end else begin
+								contadorpos = contadorpos - 3'd1;
+						  end
+				3'b110: if (tipo == 1) begin
+								Sseg1 = CSseg;
+						  end else begin
+								contadorpos = contadorpos - 3'd1;
+						  end
+				3'b111: begin 
+						  if (tipo == 1) begin
+								Sseg0 = CSseg;
+						  end else begin
+								contadorpos = contadorpos - 3'd1;
+						  end 
+						  signo1 = Sseg7;
+						  Ssegnum1[20:14] = Sseg6;
+						  Ssegnum1[13:7] = Sseg5;
+						  Ssegnum1[6:0] = Sseg4;
+						  operador = Sseg3;
+						  Ssegnum2[20:14] = Sseg2;
+						  Ssegnum2[13:7] = Sseg1;
+						  Ssegnum2[6:0] = Sseg0;
+						  end
+			endcase 
+			
+			contadorpos = contadorpos + 3'd1;
+		end
 	end
-	
+		
 endmodule 
 

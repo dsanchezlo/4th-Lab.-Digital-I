@@ -26,6 +26,7 @@ module Conversor(tecla, tipo, CSseg);
 	parameter [6:0] segF = 7'b0111000; //F
 	parameter [6:0] sego = 7'b0000001; //o
 	parameter [6:0] segh = 7'b1101000; //h
+	parameter [6:0] segeq = 7'b1110110; //=
 	parameter [6:0] nul = 7'b1111111; //
 	
 	
@@ -58,6 +59,7 @@ module Conversor(tecla, tipo, CSseg);
 				4'b0011: CSseg = segdiv;
 				4'b0100: CSseg = sego;
 				4'b0101: CSseg = segh;
+				4'b0110: CSseg = segeq;
 				default: CSseg = nul;
 			endcase
 		end

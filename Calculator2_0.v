@@ -11,6 +11,12 @@ module Calculator2_0(clk, col, fil, Sseg, anodos);
 	wire [20:0]Ssegnum2;
 	wire [6:0]signo1;
 	wire [6:0]operador;
+	wire [9:0]num1;
+	wire [9:0]num2;
+	wire sig1;
+	wire [1:0]oper;
+	wire [19:0]resultado;
+	wire signo_resultado;
 	
 	//Guarda el valor ingresado con la tecla
 	wire [6:0] CSseg;
@@ -25,6 +31,10 @@ module Calculator2_0(clk, col, fil, Sseg, anodos);
 	
 	Barrido_displays bardisp(CSseg, tipo, clk1kHz, Sseg, anodos, Ssegnum1, Ssegnum2, signo1, operador);
 	
-	Ssegtobin convsegtobin(Ssegnum1, Ssegnum2, signo1, operador, num1, num2, sig1, sig2);
+	Ssegtobin convsegtobin(Ssegnum1, Ssegnum2, signo1, operador, num1, num2, sig1, oper);
+	
+	Operacion op(num1, num2, sig1, oper, resultado, signo_resultado);
+	
+	Digitos_result digres(resultado, dres0, dres1, dres2, dres3, dres4, dres5);
 	
 endmodule 
