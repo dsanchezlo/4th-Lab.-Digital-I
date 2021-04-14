@@ -31,7 +31,7 @@ module Comparador_col(fil, col, tecla, tipo);
 				'b1000: 	begin tecla = 'd3; tipo = 1; end
 				'b0100: 	begin tecla = 'd6; tipo = 1; end
 				'b0010: 	begin tecla = 'd9; tipo = 1; end
-				'b0001: 	begin tecla = 'd10; tipo = 0; end
+				'b0001: 	begin tecla = 'd6; tipo = 0; end
 				default: begin tecla = 'd10; tipo = 0; end
 			endcase
 		end
