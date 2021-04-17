@@ -36,7 +36,7 @@ module Calculator2_0(clk, col, fil, Sseg, anodos);
 	
 	Conversor print(tecla, tipo, CSseg);
 	
-	Barrido_displays bardisp(CSseg, tipo, clk1kHz, dres0, dres1, dres2, dres3, dres4, dres5, signo_resultado, Sseg, anodos, Ssegnum1, Ssegnum2, signo1, operador);
+	Barrido_displays bardisp(pulsacion, CSseg, tipo, clk1kHz, dres0, dres1, dres2, dres3, dres4, dres5, signo_resultado, Sseg, anodos, Ssegnum1, Ssegnum2, signo1, operador);
 	
 	/*Ssegtobin convsegtobin(Ssegnum1, Ssegnum2, signo1, operador, num1, num2, sig1, oper);
 	
