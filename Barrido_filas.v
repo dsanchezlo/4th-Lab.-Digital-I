@@ -17,4 +17,4 @@ module Barrido_filas(clk1kHz, fil);
 		endcase
 	end
 
-endmodule 
+endmodule
