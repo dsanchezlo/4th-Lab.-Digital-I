@@ -6,6 +6,7 @@ reg [20:0]count;
 
 initial begin
 	count = 0;
+	clk1kHz = 0;
 end
 
 always @(posedge clk)begin
@@ -18,4 +19,4 @@ always @(posedge clk)begin
 end
 
 
-endmodule 
+endmodule
