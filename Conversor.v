@@ -29,7 +29,6 @@ module Conversor(tecla, tipo, CSseg);
 	parameter [6:0] segeq = 7'b1110110; //=
 	parameter [6:0] nul = 7'b1111111; //
 	
-	
 	always @(*)begin
 		
 		if (tipo == 1)begin // Es un numero
@@ -65,4 +64,4 @@ module Conversor(tecla, tipo, CSseg);
 		end
 	end
 	
-endmodule 
+endmodule
