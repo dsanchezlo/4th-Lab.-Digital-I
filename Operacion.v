@@ -40,4 +40,4 @@ module Operacion (num1, num2, sig1, oper, resultado, signo_resultado);
 	
 	
 	
-endmodule 
+endmodule
