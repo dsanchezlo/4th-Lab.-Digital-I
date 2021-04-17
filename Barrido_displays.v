@@ -1,4 +1,5 @@
-module Barrido_displays(CSseg, tipo, clk1kHz, dres0, dres1, dres2, dres3, dres4, dres5, signo_resultado, Sseg, anodos, Ssegnum1, Ssegnum2, signo1, operador);
+module Barrido_displays(pulsacion, CSseg, tipo, clk1kHz, dres0, dres1, dres2, dres3, dres4, dres5, signo_resultado, Sseg, anodos, Ssegnum1, Ssegnum2, signo1, operador);
+	input [2:0] pulsacion;
 	input [6:0] CSseg;
 	input tipo;
 	input clk1kHz;
@@ -29,13 +30,11 @@ module Barrido_displays(CSseg, tipo, clk1kHz, dres0, dres1, dres2, dres3, dres4,
 	//Recorrer los 8 displays
 	reg [2:0]contadorbar;
 	
-	//Guarda la posicion actual de los displays
-	reg [2:0]contadorpos;
-	
 	parameter [6:0] nul = 7'b1111111;
 	parameter [6:0] segmin = 7'b1111110; //-
 	parameter [6:0] segeq = 7'b1110110; //=
-	
+	parameter [6:0] segplus = 7'b1101100; // +	
+
 	//Inicializar registros
 	initial begin
 		contadorbar = 3'b0;
@@ -47,7 +46,6 @@ module Barrido_displays(CSseg, tipo, clk1kHz, dres0, dres1, dres2, dres3, dres4,
 		Sseg5 = nul;
 		Sseg6 = nul;
 		Sseg7 = nul;
-		contadorpos = 3'b0;
 	end
 	
 	always @(posedge clk1kHz) begin
@@ -74,46 +72,35 @@ module Barrido_displays(CSseg, tipo, clk1kHz, dres0, dres1, dres2, dres3, dres4,
 			Sseg7 = nul;
 		end else begin
 		
-			case(contadorpos)
-				3'b000: if (tipo == 0)begin 
-								Sseg7 = (CSseg == 7'b1101100) ? 7'b1111111:CSseg; 
-						  end
-				3'b001: if (tipo == 1)begin
+			case(pulsacion)
+				4'b0001: if (tipo == 0)begin 
+								Sseg7 = (CSseg == segplus) ? nul:CSseg; 
+						  end else begin
+								Sseg7 = nul;
 								Sseg6 = CSseg;
-						  end else begin
-								contadorpos = contadorpos - 3'd1;
 						  end
-				3'b010: if (tipo == 1)begin
+				4'b0010: if (tipo == 1)begin
+								Sseg6 = CSseg;
+						  end
+				4'b0011: if (tipo == 1)begin
 								Sseg5 = CSseg;
-						  end else begin
-								contadorpos = contadorpos - 3'd1;
 						  end
-				3'b011: if (tipo == 1) begin
+				4'b0100: if (tipo == 1) begin
 								Sseg4 = CSseg;
-						  end else begin
-								contadorpos = contadorpos - 3'd1;
 						  end
-				3'b100: if (tipo == 0) begin
+				4'b0101: if (tipo == 0) begin
 								Sseg3 = CSseg;
-						  end else begin
-								contadorpos = contadorpos - 3'd1;
 						  end
-				3'b101: if (tipo == 1) begin
+				4'b0110: if (tipo == 1) begin
 								Sseg2 = CSseg;
-						  end else begin
-								contadorpos = contadorpos - 3'd1;
 						  end
-				3'b110: if (tipo == 1) begin
+				4'b0111: if (tipo == 1) begin
 								Sseg1 = CSseg;
-						  end else begin
-								contadorpos = contadorpos - 3'd1;
 						  end
-				3'b111: begin 
+				4'b1000: begin 
 						  if (tipo == 1) begin
 								Sseg0 = CSseg;
-						  end else begin
-								contadorpos = contadorpos - 3'd1;
-						  end 
+						  end
 						  signo1 = Sseg7;
 						  Ssegnum1[20:14] = Sseg6;
 						  Ssegnum1[13:7] = Sseg5;
@@ -123,11 +110,8 @@ module Barrido_displays(CSseg, tipo, clk1kHz, dres0, dres1, dres2, dres3, dres4,
 						  Ssegnum2[13:7] = Sseg1;
 						  Ssegnum2[6:0] = Sseg0;
 						  end
+				default: ;
 			endcase 
-			
-			contadorpos = contadorpos + 3'd1;
 		end
 	end
-		
-endmodule 
-
+endmodule
