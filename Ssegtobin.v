@@ -32,13 +32,12 @@ module Ssegtobin (Ssegnum1, Ssegnum2, signo1, operador, num1, num2, sig1, oper);
 	parameter [6:0] nul = 7'b1111111; //
 	
 	initial begin
-		
-		digit11 = 0;
-		digit12 = 0;
-		digit13 = 0;
-		digit21 = 0;
-		digit22 = 0;
-		digit23 = 0;
+		digit11 = 'b0;
+		digit12 = 'b0;
+		digit13 = 'b0;
+		digit21 = 'b0;
+		digit22 = 'b0;
+		digit23 = 'b0;
 	end
 	
 	always @(*)begin
