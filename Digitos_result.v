@@ -9,18 +9,18 @@ module Digitos_result (resultado, dres0, dres1, dres2, dres3, dres4, dres5);
 	
 	reg [19:0] Cresult;
 	
-	reg [19:0] i;
+	reg [3:0] i;
 	
 	always @(*)begin
 		for (i='d0; i < 'd10; i = i + 'd1) begin
 			if ((resultado - i) % 'd10 == 'd0)begin
-				Cresult = resultado - i;
+				Cresult = (resultado - i)/'d10;
 				dres0 = i;
 			end
 		end
-		for (i='d10; i < 'd100; i = i + 'd10) begin
-			if ((Cresult - i) % 'd100 == 'd0)begin
-				Cresult = Cresult - i;
+		for (i='d0; i < 'd10; i = i + 'd1) begin
+			if ((Cresult - i) % 'd10 == 'd0)begin
+				Cresult = (Cresult - i)/'d10;
 				dres1 = i;
 			end
 		end
@@ -49,4 +49,4 @@ module Digitos_result (resultado, dres0, dres1, dres2, dres3, dres4, dres5);
 			end
 		end
 	end
-endmodule 
+endmodule
