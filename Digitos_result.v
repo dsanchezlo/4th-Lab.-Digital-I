@@ -1,52 +1,97 @@
-module Digitos_result (resultado, dres0, dres1, dres2, dres3, dres4, dres5);
+module Digitos_result (resultado, dres);
 	input [19:0] resultado;
-	output reg [3:0] dres0;
-	output reg [3:0] dres1;
-	output reg [3:0] dres2;
-	output reg [3:0] dres3;
-	output reg [3:0] dres4;
-	output reg [3:0] dres5;
-	
-	reg [19:0] Cresult;
-	
-	reg [3:0] i;
+	output reg [23:0] dres;
 	
 	always @(*)begin
-		for (i='d0; i < 'd10; i = i + 'd1) begin
-			if ((resultado - i) % 'd10 == 'd0)begin
-				Cresult = (resultado - i)/'d10;
-				dres0 = i;
-			end
+		if (resultado >= 1'd0 && resultado <= 4'd9)begin
+			dres[3:0] = resultado[3:0];
+			dres[7:4] = 'd0;
+			dres[11:8] = 'd0;
+			dres[15:12] = 'd0;
+			dres[19:16] = 'd0;
+			dres[23:20] = 'd0;
 		end
-		for (i='d0; i < 'd10; i = i + 'd1) begin
-			if ((Cresult - i) % 'd10 == 'd0)begin
-				Cresult = (Cresult - i)/'d10;
-				dres1 = i;
-			end
+
+		if (resultado >= 'd10 && resultado <= 'd19)begin
+			dres[3:0] = resultado - 'd10;
+			dres[7:4] = 'd1;
+			dres[11:8] = 'd0;
+			dres[15:12] = 'd0;
+			dres[19:16] = 'd0;
+			dres[23:20] = 'd0;
+		end 
+
+		if (resultado >= 5'd20 && resultado <= 5'd29) begin 
+			dres[3:0] = resultado - 'd20;
+			dres[7:4] = 'd2;
+			dres[11:8] = 'd0;
+			dres[15:12] = 'd0;
+			dres[19:16] = 'd0;
+			dres[23:20] = 'd0;
 		end
-		for (i='d100; i < 'd1_000; i = i + 'd100) begin
-			if ((Cresult - i) % 'd1_000 == 'd0)begin
-				Cresult = Cresult - i;
-				dres2 = i;
-			end
+
+		if (resultado >= 5'd30 && resultado <= 6'd39) begin
+			dres[3:0] = resultado - 'd30;
+			dres[7:4] = 'd3;
+			dres[11:8] = 'd0;
+			dres[15:12] = 'd0;
+			dres[19:16] = 'd0;
+			dres[23:20] = 'd0;
 		end
-		for (i='d1_000; i < 'd10_000; i = i + 'd1_000) begin
-			if ((Cresult - i) % 'd10_000 == 'd0)begin
-				Cresult = Cresult - i;
-				dres3 = i;
-			end
+
+		if (resultado >= 6'd40 && resultado <= 6'd49) begin
+			dres[3:0] = resultado - 'd40;
+			dres[7:4] = 'd4;
+			dres[11:8] = 'd0;
+			dres[15:12] = 'd0;
+			dres[19:16] = 'd0;
+			dres[23:20] = 'd0;	
 		end
-		for (i='d10_000; i < 'd100_000; i = i + 'd10_000) begin
-			if ((Cresult - i) % 'd100_000 == 'd0)begin
-				Cresult = Cresult - i;
-				dres4 = i;
-			end
+
+		if (resultado >= 6'd50 && resultado <= 6'd59) begin
+			dres[3:0] = resultado - 'd50;
+			dres[7:4] = 'd5;
+			dres[11:8] = 'd0;
+			dres[15:12] = 'd0;
+			dres[19:16] = 'd0;
+			dres[23:20] = 'd0;
 		end
-		for (i='d100_000; i < 'd1_000_000; i = i + 'd100_000) begin
-			if ((Cresult - i) % 'd1_000_000 == 'd0)begin
-				Cresult = Cresult - i;
-				dres5 = i;
-			end
+
+		if (resultado >= 6'd60 && resultado <= 7'd69) begin
+			dres[3:0] = resultado - 'd60;
+			dres[7:4] = 'd6;
+			dres[11:8] = 'd0;
+			dres[15:12] = 'd0;
+			dres[19:16] = 'd0;
+			dres[23:20] = 'd0;	
 		end
+		
+		if (resultado >= 6'd70 && resultado <= 7'd79) begin
+			dres[3:0] = resultado - 'd70;
+			dres[7:4] = 'd7;
+			dres[11:8] = 'd0;
+			dres[15:12] = 'd0;
+			dres[19:16] = 'd0;
+			dres[23:20] = 'd0;	
+		end
+		
+		if (resultado >= 6'd80 && resultado <= 7'd89) begin
+			dres[3:0] = resultado - 'd80;
+			dres[7:4] = 'd8;
+			dres[11:8] = 'd0;
+			dres[15:12] = 'd0;
+			dres[19:16] = 'd0;
+			dres[23:20] = 'd0;	
+		end
+		
+		if (resultado >= 6'd90 && resultado <= 7'd99) begin
+			dres[3:0] = resultado - 'd90;
+			dres[7:4] = 'd9;
+			dres[11:8] = 'd0;
+			dres[15:12] = 'd0;
+			dres[19:16] = 'd0;
+			dres[23:20] = 'd0;	
+		end
+		
 	end
 endmodule
