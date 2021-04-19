@@ -128,8 +128,8 @@ module Ssegtobin (Ssegnum1, Ssegnum2, signo1, operador, num1, num2, sig1, oper);
 		endcase
 		sig1 = (signo1 == nul) ? 'd0:'d1;
 		
-		num1 = digit11 * 'd100 + digit12 * 'd10 + digit13;
-		num2 = digit21 * 'd100 + digit22 * 'd10 + digit23;
+		num1 = (digit11 * 'd100) + (digit12 * 'd10) + digit13;
+		num2 = (digit21 * 'd100) + (digit22 * 'd10) + digit23;
 	end
 	
 endmodule
